@@ -1,6 +1,8 @@
 package lab_1;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ public class Main extends JFrame {
     private boolean isRGBUpdating = false;
     private boolean isCMYKUpdating = false;
     private boolean isHSVUpdating = false;
+    private boolean updatingSlider = false;
 
 
     private DecimalFormat decimalFormat;
@@ -47,7 +50,14 @@ public class Main extends JFrame {
 
         redSlider = new JSlider(0, 255);
         redSlider.setValue(255);
-        redSlider.addChangeListener(e -> updateColorFromRGBSlider());
+        redSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                     updateColorFromRGBSlider();
+                }
+            }
+        });
         gbc.gridx = 2;
         add(redSlider, gbc);
 
@@ -60,7 +70,14 @@ public class Main extends JFrame {
 
         greenSlider = new JSlider(0, 255);
         greenSlider.setValue(255);
-        greenSlider.addChangeListener(e -> updateColorFromRGBSlider());
+        greenSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateColorFromRGBSlider();
+                }
+            }
+        });
         gbc.gridx = 2;
         add(greenSlider, gbc);
 
@@ -73,7 +90,14 @@ public class Main extends JFrame {
 
         blueSlider = new JSlider(0, 255);
         blueSlider.setValue(255);
-        blueSlider.addChangeListener(e -> updateColorFromRGBSlider());
+        blueSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateColorFromRGBSlider();
+                }
+            }
+        });
         gbc.gridx = 2;
         add(blueSlider, gbc);
 
@@ -92,7 +116,14 @@ public class Main extends JFrame {
 
         cSlider = new JSlider(0, 100);
         cSlider.setValue(0);
-        cSlider.addChangeListener(e -> updateCMYKSliders());
+        cSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateCMYKSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(cSlider, gbc);
 
@@ -105,7 +136,14 @@ public class Main extends JFrame {
 
         mSlider = new JSlider(0, 100);
         mSlider.setValue(0);
-        mSlider.addChangeListener(e -> updateCMYKSliders());
+        mSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateCMYKSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(mSlider, gbc);
 
@@ -118,7 +156,14 @@ public class Main extends JFrame {
 
         ySlider = new JSlider(0, 100);
         ySlider.setValue(0);
-        ySlider.addChangeListener(e -> updateCMYKSliders());
+        ySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateCMYKSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(ySlider, gbc);
 
@@ -131,7 +176,14 @@ public class Main extends JFrame {
 
         kSlider = new JSlider(0, 100);
         kSlider.setValue(0);
-        kSlider.addChangeListener(e -> updateCMYKSliders());
+        kSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateCMYKSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(kSlider, gbc);
 
@@ -148,9 +200,16 @@ public class Main extends JFrame {
         gbc.gridx = 1;
         add(hField, gbc);
 
-        hSlider = new JSlider(0, 360);
+        hSlider = new JSlider(0, 36000);
         hSlider.setValue(0);
-        hSlider.addChangeListener(e -> updateHSVSliders());
+        hSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateHSVSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(hSlider, gbc);
 
@@ -163,7 +222,14 @@ public class Main extends JFrame {
 
         sSlider = new JSlider(0, 100);
         sSlider.setValue(100);
-        sSlider.addChangeListener(e -> updateHSVSliders());
+        sSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateHSVSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(sSlider, gbc);
 
@@ -176,7 +242,14 @@ public class Main extends JFrame {
 
         vSlider = new JSlider(0, 100);
         vSlider.setValue(100);
-        vSlider.addChangeListener(e -> updateHSVSliders());
+        vSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!updatingSlider) {
+                    updateHSVSliders();
+                }
+            }
+        });
         gbc.gridx = 3;
         add(vSlider, gbc);
 
@@ -238,9 +311,11 @@ public class Main extends JFrame {
             int g = Integer.parseInt(greenField.getText());
             int b = Integer.parseInt(blueField.getText());
 
+            updatingSlider = true;
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+            updatingSlider = false;
 
             if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
                 JOptionPane.showMessageDialog(this, "Please enter values between 0 and 255 for RGB.");
@@ -278,10 +353,12 @@ public class Main extends JFrame {
         yField.setText(decimalFormat.format(y));
         kField.setText(decimalFormat.format(k));
 
+        updatingSlider = true;
         cSlider.setValue((int) (c * 100));
         mSlider.setValue((int) (m * 100));
         ySlider.setValue((int) (y * 100));
         kSlider.setValue((int) (k * 100));
+        updatingSlider = false;
     }
 
     private void convertRGBtoHSV(int r, int g, int b) {
@@ -323,9 +400,11 @@ public class Main extends JFrame {
         sField.setText(decimalFormat.format(s));
         vField.setText(decimalFormat.format(v));
 
+        updatingSlider = true;
         hSlider.setValue((int) h);
         sSlider.setValue((int) (s * 100));
         vSlider.setValue((int) (v * 100));
+        updatingSlider = false;
 
     }
 
@@ -375,7 +454,7 @@ public class Main extends JFrame {
         if (!isHSVUpdating) {
             isHSVUpdating = true; // Устанавливаем флаг для HSV
             try {
-                float h = hSlider.getValue();
+                float h = hSlider.getValue() / 100.0f;
                 float s = sSlider.getValue() / 100.0f;
                 float v = vSlider.getValue() / 100.0f;
 
@@ -410,9 +489,11 @@ public class Main extends JFrame {
             greenField.setText(String.valueOf(g));
             blueField.setText(String.valueOf(b));
 
+            updatingSlider = true;
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+            updatingSlider = false;
 
             convertRGBtoHSV(r, g, b);
 
@@ -488,9 +569,11 @@ public class Main extends JFrame {
             greenField.setText(String.valueOf(g));
             blueField.setText(String.valueOf(b));
 
+            updatingSlider = true;
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+            updatingSlider = false;
 
             convertRGBtoCMYK(r, g, b);
 
@@ -512,9 +595,11 @@ public class Main extends JFrame {
             greenField.setText(String.valueOf(g));
             blueField.setText(String.valueOf(b));
 
+            updatingSlider = true;
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+            updatingSlider = false;
 
             convertRGBtoOthers();
 
