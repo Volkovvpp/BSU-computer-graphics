@@ -12,21 +12,35 @@ import java.util.Locale;
 
 public class Main extends JFrame {
 
-    private JTextField redField, greenField, blueField;
-    private JTextField cField, mField, yField, kField;
-    private JTextField hField, sField, vField;
-    private JPanel colorDisplayPanel;
+    private final JTextField redField;
+    private final JTextField greenField;
+    private final JTextField blueField;
+    private final JTextField cField;
+    private final JTextField mField;
+    private final JTextField yField;
+    private final JTextField kField;
+    private final JTextField hField;
+    private final JTextField sField;
+    private final JTextField vField;
+    private final JPanel colorDisplayPanel;
     private Color chosenColor = Color.WHITE;
-    private JSlider redSlider, greenSlider, blueSlider;
-    private JSlider cSlider, mSlider, ySlider, kSlider;
-    private JSlider hSlider, sSlider, vSlider;
+    private final JSlider redSlider;
+    private final JSlider greenSlider;
+    private final JSlider blueSlider;
+    private final JSlider cSlider;
+    private final JSlider mSlider;
+    private final JSlider ySlider;
+    private final JSlider kSlider;
+    private final JSlider hSlider;
+    private final JSlider sSlider;
+    private final JSlider vSlider;
     private boolean isRGBUpdating = false;
     private boolean isCMYKUpdating = false;
     private boolean isHSVUpdating = false;
     private boolean updatingSlider = false;
 
 
-    private DecimalFormat decimalFormat;
+    private final DecimalFormat decimalFormat;
 
     public Main() {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
@@ -454,7 +468,7 @@ public class Main extends JFrame {
         if (!isHSVUpdating) {
             isHSVUpdating = true; // Устанавливаем флаг для HSV
             try {
-                float h = hSlider.getValue() / 100.0f;
+                float h = hSlider.getValue();
                 float s = sSlider.getValue() / 100.0f;
                 float v = vSlider.getValue() / 100.0f;
 
