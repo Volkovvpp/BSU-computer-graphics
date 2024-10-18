@@ -200,7 +200,7 @@ public class Main extends JFrame {
         gbc.gridx = 1;
         add(hField, gbc);
 
-        hSlider = new JSlider(0, 36000);
+        hSlider = new JSlider(0, 360);
         hSlider.setValue(0);
         hSlider.addChangeListener(new ChangeListener() {
             @Override
