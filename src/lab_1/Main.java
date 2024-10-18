@@ -6,9 +6,13 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.List;
 
 public class Main extends JFrame {
 
@@ -278,7 +282,7 @@ public class Main extends JFrame {
         add(chooseColorButton, gbc);
 
         colorDisplayPanel = new JPanel();
-        colorDisplayPanel.setPreferredSize(new Dimension(100, 100));
+        colorDisplayPanel.setPreferredSize(new Dimension(50, 50));
         colorDisplayPanel.setBackground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 14;
@@ -317,6 +321,21 @@ public class Main extends JFrame {
                 chooseColorFromPalette();
             }
         });
+
+        List<JTextField> textFields = new ArrayList<>(List.of(redField, greenField, blueField, cField, mField, yField, kField, hField, sField, vField));
+
+        for (int i = 0; i < textFields.size(); i++) {
+            var field = textFields.get(i);
+            textFields.get(i).addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (field.getText().isEmpty()) {
+                        field.setText("0");
+                        convertRGBtoOthers();
+                    }
+                }
+            });
+        }
     }
 
     private void convertRGBtoOthers() {
@@ -587,6 +606,10 @@ public class Main extends JFrame {
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+
+            hSlider.setValue((int) h);
+            sSlider.setValue((int) (s * 100));
+            vSlider.setValue((int) (v * 100));
             updatingSlider = false;
 
             convertRGBtoCMYK(r, g, b);
