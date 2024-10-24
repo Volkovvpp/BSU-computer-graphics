@@ -526,6 +526,11 @@ public class Main extends JFrame {
             redSlider.setValue(r);
             greenSlider.setValue(g);
             blueSlider.setValue(b);
+
+            cSlider.setValue((int) (c * 100));
+            mSlider.setValue((int) (m * 100));
+            ySlider.setValue((int) (y * 100));
+            kSlider.setValue((int) (k * 100));
             updatingSlider = false;
 
             convertRGBtoHSV(r, g, b);
